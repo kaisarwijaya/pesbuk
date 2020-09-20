@@ -1,4 +1,24 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: facebook-configmap
+  namespace: production
+data:
+  config.php: |
+        <?php
+        $db_host = ("cilsydb.ct6gyzehincn.ap-southeast-1.rds.amazonaws.com");
+        $db_user = ("root");
+        $db_pass = ("Admin123");
+        $db_name = ("dbcilsy");
+        try {
+        //create PDO connection
+        $db = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
+        } catch(PDOException $e) {
+        //show error
+        die("Terjadi masalah: " . $e->getMessage());
+        }
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: php-pesbuk
@@ -33,7 +53,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: php-pesbuk
-        image: smufti21/sosial-media 
+        image: kaisarwijaya/sosial-media:latest
         ports:
           - containerPort: 80
         volumeMounts:
