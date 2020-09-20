@@ -14,7 +14,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8">
-                        <h1>Welcome on Pesbuk ya Bro</h1>
+                        <h1>Welcome on Pesbuk ya Bro !!! </h1>
                         <p>Bergabunglah bersama 1.000.000 orang lainnya...</p>
                     </div>
                     <div class="col-md-4">
