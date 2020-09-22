@@ -2,14 +2,14 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: facebook-configmap
-  namespace: production
+  namespace: staging
 data:
   config.php: |
         <?php
         $db_host = ("cilsydb.ct6gyzehincn.ap-southeast-1.rds.amazonaws.com");
         $db_user = ("root");
         $db_pass = ("Admin123");
-        $db_name = ("dbcilsy");
+        $db_name = ("pesbuk-staging");
         try {
         //create PDO connection
         $db = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
@@ -39,7 +39,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: php-pesbuk
-  namespace: production
+  namespace: staging
 spec:
   replicas: 3
   selector:
@@ -53,7 +53,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: php-pesbuk
-        image: kaisarwijaya/sosial-media:configmap
+        image: kaisarwijaya/pesbuk-staging:latest
         ports:
           - containerPort: 80
         volumeMounts:
@@ -67,14 +67,14 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  namespace: production
+  namespace: staging
   name: pesbuk-ingress
   annotations:
 #   nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   rules:
-  - host: pesbuk.sarisalju.com
+  - host: s-pesbuk.sarisalju.com
     http:
       paths:
       #- path: /
